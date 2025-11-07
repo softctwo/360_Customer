@@ -607,18 +607,21 @@
 
 .heatmap-grid {
     display: grid;
+    grid-template-columns: 100px repeat(11, 1fr);
     gap: 2px;
     min-width: 900px;
-}
-
-.heatmap-row {
-    display: grid;
-    grid-template-columns: 150px repeat(11, 1fr);
-    gap: 2px;
     align-items: center;
 }
 
-.heatmap-label {
+.heatmap-header-cell {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 8px 4px;
+    text-align: center;
+}
+
+.heatmap-row-label {
     font-size: 13px;
     font-weight: 500;
     color: var(--text-primary);
@@ -1294,4 +1297,188 @@
 
 .risk-critical-fill {
     background: linear-gradient(90deg, #f5222d, #ff4d4f);
+}
+
+/* 营销策略页面样式 */
+.marketing-segments {
+    display: grid;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.segment-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.segment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.segment-card.segment-premium {
+    border-left: 4px solid #722ed1;
+}
+
+.segment-card.segment-growth {
+    border-left: 4px solid #52c41a;
+}
+
+.segment-card.segment-new {
+    border-left: 4px solid #1890ff;
+}
+
+.segment-card.segment-churn {
+    border-left: 4px solid #faad14;
+}
+
+.segment-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.segment-icon {
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(24, 144, 255, 0.1), rgba(24, 144, 255, 0.05));
+    border-radius: 12px;
+}
+
+.segment-premium .segment-icon {
+    background: linear-gradient(135deg, rgba(114, 46, 209, 0.1), rgba(114, 46, 209, 0.05));
+}
+
+.segment-growth .segment-icon {
+    background: linear-gradient(135deg, rgba(82, 196, 26, 0.1), rgba(82, 196, 26, 0.05));
+}
+
+.segment-new .segment-icon {
+    background: linear-gradient(135deg, rgba(24, 144, 255, 0.1), rgba(24, 144, 255, 0.05));
+}
+
+.segment-churn .segment-icon {
+    background: linear-gradient(135deg, rgba(250, 173, 20, 0.1), rgba(250, 173, 20, 0.05));
+}
+
+.segment-info {
+    flex: 1;
+}
+
+.segment-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 6px 0;
+}
+
+.segment-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.segment-count {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.segment-body {
+    padding: 24px;
+}
+
+.segment-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.segment-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.segment-stat-item .stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.segment-stat-item .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.segment-stat-item .stat-value.positive {
+    color: #52c41a;
+}
+
+.segment-stat-item .stat-value.negative {
+    color: #f5222d;
+}
+
+.segment-strategy {
+    margin-bottom: 20px;
+}
+
+.strategy-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 12px 0;
+}
+
+.strategy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.strategy-list li {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.strategy-list li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.segment-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.positive {
+    color: #52c41a;
+}
+
+.negative {
+    color: #f5222d;
 }

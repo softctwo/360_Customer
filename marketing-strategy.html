@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>营销策略 - 客户画像系统</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>票据业务客户画像系统</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">客户画像</a>
+                    <a href="dashboard.html" class="nav-link">数据分析</a>
+                    <a href="risk-warning.html" class="nav-link">风险预警</a>
+                    <a href="marketing-strategy.html" class="nav-link active">营销策略</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content dashboard-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <div>
+                    <h2 class="page-title">营销策略中心</h2>
+                    <p class="page-subtitle">基于客户画像的精准营销策略制定与执行</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="createCampaign()">➕ 创建营销活动</button>
+                    <button class="btn btn-success" onclick="exportStrategy()">📥 导出策略报告</button>
+                </div>
+            </div>
+
+            <!-- KPI卡片 -->
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-info">
+                        <div class="stat-label">活跃营销活动</div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-change positive">+3 较上月</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-info">
+                        <div class="stat-label">转化率</div>
+                        <div class="stat-value">32.5%</div>
+                        <div class="stat-change positive">+5.2% 较上月</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <div class="stat-label">目标客户</div>
+                        <div class="stat-value">356</div>
+                        <div class="stat-change positive">+28 较上月</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <div class="stat-label">营销ROI</div>
+                        <div class="stat-value">4.8x</div>
+                        <div class="stat-change positive">+0.6x 较上月</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户分群策略 -->
+            <div class="industry-analysis-section">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title">🎯 客户分群营销策略</h3>
+                        <p class="section-subtitle">基于客户画像的精准分群和定制化营销方案</p>
+                    </div>
+                </div>
+
+                <div class="marketing-segments">
+                    <!-- 高价值客户群 -->
+                    <div class="segment-card segment-premium">
+                        <div class="segment-header">
+                            <div class="segment-icon">⭐</div>
+                            <div class="segment-info">
+                                <h4 class="segment-title">高价值客户群</h4>
+                                <p class="segment-desc">年交易额>50亿，信用AAA/AA+，强势客户</p>
+                            </div>
+                            <div class="segment-count">28 家</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-stats">
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">总交易额</span>
+                                    <span class="stat-value">4,580亿</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">平均增长率</span>
+                                    <span class="stat-value positive">+12.3%</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">风险等级</span>
+                                    <span class="stat-value">低</span>
+                                </div>
+                            </div>
+                            <div class="segment-strategy">
+                                <h5 class="strategy-title">推荐策略</h5>
+                                <ul class="strategy-list">
+                                    <li>提供VIP专属服务，配备高级客户经理</li>
+                                    <li>优先审批，提高授信额度</li>
+                                    <li>定期组织高端商务活动，增强客户粘性</li>
+                                    <li>推出创新金融产品，满足多元化需求</li>
+                                </ul>
+                            </div>
+                            <div class="segment-actions">
+                                <button class="btn btn-primary btn-sm" onclick="viewSegmentDetails('premium')">查看详情</button>
+                                <button class="btn btn-secondary btn-sm" onclick="launchCampaign('premium')">发起营销</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 成长潜力客户群 -->
+                    <div class="segment-card segment-growth">
+                        <div class="segment-header">
+                            <div class="segment-icon">📈</div>
+                            <div class="segment-info">
+                                <h4 class="segment-title">成长潜力客户群</h4>
+                                <p class="segment-desc">业务增长>20%，交易活跃，成长型客户</p>
+                            </div>
+                            <div class="segment-count">45 家</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-stats">
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">总交易额</span>
+                                    <span class="stat-value">1,230亿</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">平均增长率</span>
+                                    <span class="stat-value positive">+28.6%</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">风险等级</span>
+                                    <span class="stat-value">中低</span>
+                                </div>
+                            </div>
+                            <div class="segment-strategy">
+                                <h5 class="strategy-title">推荐策略</h5>
+                                <ul class="strategy-list">
+                                    <li>提供业务培训和咨询服务，助力客户成长</li>
+                                    <li>推出优惠利率政策，鼓励增加交易量</li>
+                                    <li>引入票据池等创新产品，提升服务价值</li>
+                                    <li>定期回访，了解业务需求和痛点</li>
+                                </ul>
+                            </div>
+                            <div class="segment-actions">
+                                <button class="btn btn-primary btn-sm" onclick="viewSegmentDetails('growth')">查看详情</button>
+                                <button class="btn btn-secondary btn-sm" onclick="launchCampaign('growth')">发起营销</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新获取客户群 -->
+                    <div class="segment-card segment-new">
+                        <div class="segment-header">
+                            <div class="segment-icon">🆕</div>
+                            <div class="segment-info">
+                                <h4 class="segment-title">新获取客户群</h4>
+                                <p class="segment-desc">合作时间<6个月，业务建立初期</p>
+                            </div>
+                            <div class="segment-count">18 家</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-stats">
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">总交易额</span>
+                                    <span class="stat-value">85亿</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">平均增长率</span>
+                                    <span class="stat-value positive">+35.2%</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">风险等级</span>
+                                    <span class="stat-value">中</span>
+                                </div>
+                            </div>
+                            <div class="segment-strategy">
+                                <h5 class="strategy-title">推荐策略</h5>
+                                <ul class="strategy-list">
+                                    <li>开展新客户欢迎活动，建立良好第一印象</li>
+                                    <li>提供首单优惠，降低合作门槛</li>
+                                    <li>安排专人对接，提供一对一服务</li>
+                                    <li>收集反馈，优化服务流程</li>
+                                </ul>
+                            </div>
+                            <div class="segment-actions">
+                                <button class="btn btn-primary btn-sm" onclick="viewSegmentDetails('new')">查看详情</button>
+                                <button class="btn btn-secondary btn-sm" onclick="launchCampaign('new')">发起营销</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 流失预警客户群 -->
+                    <div class="segment-card segment-churn">
+                        <div class="segment-header">
+                            <div class="segment-icon">⚠️</div>
+                            <div class="segment-info">
+                                <h4 class="segment-title">流失预警客户群</h4>
+                                <p class="segment-desc">业务量下降>30%，交易频次降低</p>
+                            </div>
+                            <div class="segment-count">15 家</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-stats">
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">总交易额</span>
+                                    <span class="stat-value">320亿</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">平均增长率</span>
+                                    <span class="stat-value negative">-35.8%</span>
+                                </div>
+                                <div class="segment-stat-item">
+                                    <span class="stat-label">风险等级</span>
+                                    <span class="stat-value">中高</span>
+                                </div>
+                            </div>
+                            <div class="segment-strategy">
+                                <h5 class="strategy-title">推荐策略</h5>
+                                <ul class="strategy-list">
+                                    <li>立即安排客户经理上门拜访，了解原因</li>
+                                    <li>提供专项优惠政策，挽留客户</li>
+                                    <li>分析竞争对手策略，制定针对性方案</li>
+                                    <li>如涉及服务问题，快速响应并改进</li>
+                                </ul>
+                            </div>
+                            <div class="segment-actions">
+                                <button class="btn btn-primary btn-sm" onclick="viewSegmentDetails('churn')">查看详情</button>
+                                <button class="btn btn-secondary btn-sm" onclick="launchCampaign('churn')">发起营销</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 营销活动列表 -->
+            <div class="industry-analysis-section" style="margin-top: 32px;">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title">📋 营销活动管理</h3>
+                        <p class="section-subtitle">当前进行中的营销活动和历史活动记录</p>
+                    </div>
+                    <div class="section-actions">
+                        <select class="industry-selector" id="campaignFilter">
+                            <option value="all">全部活动</option>
+                            <option value="active">进行中</option>
+                            <option value="completed">已完成</option>
+                            <option value="scheduled">待启动</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="industry-table-container">
+                    <div class="industry-table-wrapper">
+                        <table class="industry-table">
+                            <thead>
+                                <tr>
+                                    <th>活动名称</th>
+                                    <th>目标客群</th>
+                                    <th>开始时间</th>
+                                    <th>结束时间</th>
+                                    <th>覆盖客户</th>
+                                    <th>转化率</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;">票据池产品推广</div>
+                                        <div style="font-size: 12px; color: #999;">主打高价值客户</div>
+                                    </td>
+                                    <td><span class="badge badge-new">高价值客户</span></td>
+                                    <td>2025-11-01</td>
+                                    <td>2025-11-30</td>
+                                    <td>28</td>
+                                    <td><span class="growth-value positive">38.5%</span></td>
+                                    <td><span class="badge badge-growing">进行中</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn">查看</button>
+                                            <button class="action-btn">编辑</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;">新客户首单优惠</div>
+                                        <div style="font-size: 12px; color: #999;">降低新客户合作门槛</div>
+                                    </td>
+                                    <td><span class="badge badge-stable">新获取客户</span></td>
+                                    <td>2025-10-15</td>
+                                    <td>2025-12-31</td>
+                                    <td>18</td>
+                                    <td><span class="growth-value positive">45.2%</span></td>
+                                    <td><span class="badge badge-growing">进行中</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn">查看</button>
+                                            <button class="action-btn">编辑</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;">流失客户挽回计划</div>
+                                        <div style="font-size: 12px; color: #999;">针对性挽留策略</div>
+                                    </td>
+                                    <td><span class="badge badge-declining">流失预警客户</span></td>
+                                    <td>2025-11-05</td>
+                                    <td>2025-11-25</td>
+                                    <td>15</td>
+                                    <td><span class="growth-value positive">26.7%</span></td>
+                                    <td><span class="badge badge-growing">进行中</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn">查看</button>
+                                            <button class="action-btn">编辑</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;">成长型客户培育</div>
+                                        <div style="font-size: 12px; color: #999;">提供增值服务</div>
+                                    </td>
+                                    <td><span class="badge badge-growing">成长潜力客户</span></td>
+                                    <td>2025-09-01</td>
+                                    <td>2025-10-31</td>
+                                    <td>45</td>
+                                    <td><span class="growth-value positive">52.3%</span></td>
+                                    <td><span class="badge badge-stable">已完成</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn">查看</button>
+                                            <button class="action-btn">复制</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/data-mock.js"></script>
+    <script>
+        // 创建营销活动
+        function createCampaign() {
+            showNotification('营销活动创建功能开发中...', 'info');
+        }
+
+        // 导出策略报告
+        function exportStrategy() {
+            showNotification('正在生成策略报告...', 'info');
+            setTimeout(() => {
+                showNotification('策略报告已生成并下载', 'success');
+            }, 2000);
+        }
+
+        // 查看分群详情
+        function viewSegmentDetails(segment) {
+            showNotification(`查看${segment}分群详情...`, 'info');
+        }
+
+        // 发起营销活动
+        function launchCampaign(segment) {
+            showNotification(`为${segment}分群发起营销活动...`, 'info');
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span class="notification-icon">${type === 'success' ? '✓' : type === 'error' ? '✗' : 'ℹ'}</span>
+                <span class="notification-message">${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
