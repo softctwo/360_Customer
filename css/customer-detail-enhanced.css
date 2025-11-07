@@ -1,0 +1,803 @@
+/* 客户详情页面增强样式 */
+
+.detail-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+/* 返回导航 */
+.back-nav {
+    margin-bottom: 20px;
+    animation: slideDown 0.5s ease;
+}
+
+/* 客户概览卡片 */
+.customer-overview-card {
+    background: var(--bg-white);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    animation: fadeInUp 0.6s ease;
+}
+
+.overview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--bg-gray);
+}
+
+.customer-main-info {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.customer-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.avatar-icon {
+    font-size: 48px;
+}
+
+.customer-name-main {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.customer-meta-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meta-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--bg-gray);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.customer-badges {
+    display: flex;
+    gap: 12px;
+}
+
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
+}
+
+.badge-icon {
+    font-size: 24px;
+}
+
+.badge-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* 关键指标网格 */
+.key-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.metric-item {
+    background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.metric-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.metric-icon {
+    font-size: 36px;
+    line-height: 1;
+}
+
+.metric-content {
+    flex: 1;
+}
+
+.metric-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.metric-trend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.trend-indicator {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.trend-indicator.up {
+    color: var(--success-color);
+}
+
+.trend-indicator.safe {
+    color: var(--success-color);
+}
+
+.trend-label {
+    color: var(--text-disabled);
+}
+
+/* 快捷操作 */
+.quick-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* 区域标题 */
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: var(--bg-white);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 业务分析区域 */
+.analysis-section,
+.risk-assessment-section,
+.revenue-section,
+.profile-dimensions-section,
+.relationship-section,
+.activity-log-section {
+    margin-bottom: 24px;
+}
+
+/* 图表网格 */
+.charts-grid-2col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.charts-grid-3col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.chart-card-enhanced {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.chart-card-enhanced:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.chart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bg-gray);
+}
+
+.chart-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.chart-card-body {
+    position: relative;
+    height: 280px;
+}
+
+/* 风险评估区域 */
+.risk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.risk-gauge-card,
+.credit-usage-card,
+.risk-indicators-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.card-title-small {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bg-gray);
+}
+
+/* 风险仪表盘 */
+.gauge-container {
+    position: relative;
+    height: 200px;
+    margin-bottom: 16px;
+}
+
+.gauge-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--success-color);
+}
+
+.risk-level-desc {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 12px;
+    background: var(--bg-gray);
+    border-radius: 8px;
+}
+
+/* 授信使用情况 */
+.credit-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.credit-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.credit-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.credit-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.credit-usage-bar {
+    height: 12px;
+    background: var(--bg-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.credit-usage-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transition: width 0.5s ease;
+}
+
+.credit-usage-text {
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 风险指标列表 */
+.risk-indicator-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.risk-indicator-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: var(--bg-gray);
+    border-radius: 8px;
+}
+
+.indicator-name {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.indicator-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.indicator-status.good {
+    background: #f6ffed;
+    color: var(--success-color);
+}
+
+.indicator-status.warning {
+    background: #fffbe6;
+    color: var(--warning-color);
+}
+
+.indicator-status.bad {
+    background: #fff1f0;
+    color: var(--danger-color);
+}
+
+/* 收益区域 */
+.revenue-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.revenue-overview-card,
+.revenue-chart-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.revenue-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.revenue-stat-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: var(--bg-gray);
+    border-radius: 10px;
+}
+
+.revenue-icon {
+    font-size: 36px;
+}
+
+.revenue-info {
+    flex: 1;
+}
+
+.revenue-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.revenue-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.revenue-change {
+    font-size: 12px;
+}
+
+.change-up {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.chart-container-small {
+    height: 300px;
+    margin-top: 20px;
+}
+
+/* 画像维度手风琴 */
+.dimensions-accordion {
+    background: var(--bg-white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.dimension-accordion-item {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dimension-accordion-item:last-child {
+    border-bottom: none;
+}
+
+.dimension-accordion-header {
+    padding: 20px 24px;
+    background: var(--bg-white);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.dimension-accordion-header:hover {
+    background: var(--bg-gray);
+}
+
+.dimension-accordion-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dimension-accordion-icon {
+    font-size: 24px;
+}
+
+.dimension-accordion-arrow {
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.dimension-accordion-item.active .dimension-accordion-arrow {
+    transform: rotate(180deg);
+}
+
+.dimension-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.dimension-accordion-item.active .dimension-accordion-body {
+    max-height: 500px;
+}
+
+.dimension-accordion-content {
+    padding: 20px 24px;
+    background: var(--bg-gray);
+}
+
+.dimension-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.dimension-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dimension-detail-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.dimension-detail-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 关系管理 */
+.relationship-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.relationship-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.relationship-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.relationship-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bg-gray);
+}
+
+.relationship-icon {
+    font-size: 28px;
+}
+
+.relationship-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.relationship-content {
+    font-size: 14px;
+}
+
+.manager-info {
+    margin-bottom: 12px;
+}
+
+.manager-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.manager-contact {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.contact-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-white);
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-icon:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.date-list,
+.service-stats,
+.promotion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.date-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.date-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.date-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.service-stats {
+    flex-direction: row;
+}
+
+.service-stat {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+    background: var(--bg-gray);
+    border-radius: 8px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.promotion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: var(--bg-gray);
+    border-radius: 6px;
+}
+
+.promotion-tag {
+    padding: 2px 8px;
+    background: var(--success-color);
+    color: white;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.promotion-name {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+/* 活动时间线 */
+.activity-log-section {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-md);
+}
+
+.activity-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 3px solid var(--bg-white);
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.timeline-content {
+    background: var(--bg-gray);
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+.timeline-time {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.timeline-text {
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .charts-grid-2col {
+        grid-template-columns: 1fr;
+    }
+
+    .revenue-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .overview-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .customer-badges {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .key-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .charts-grid-3col {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .credit-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .revenue-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .relationship-grid {
+        grid-template-columns: 1fr;
+    }
+}
