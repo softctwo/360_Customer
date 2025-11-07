@@ -583,3 +583,222 @@
     font-size: 14px;
     opacity: 0.7;
 }
+
+/* 热力图样式 */
+.heatmap-metric-select {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 13px;
+    background: var(--bg-white);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.heatmap-metric-select:hover {
+    border-color: var(--primary-color);
+}
+
+.heatmap-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.heatmap-grid {
+    display: grid;
+    gap: 2px;
+    min-width: 900px;
+}
+
+.heatmap-row {
+    display: grid;
+    grid-template-columns: 150px repeat(11, 1fr);
+    gap: 2px;
+    align-items: center;
+}
+
+.heatmap-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    padding: 8px 12px;
+    text-align: right;
+}
+
+.heatmap-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 50px;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.heatmap-cell-value {
+    display: block;
+}
+
+/* 热力图颜色等级 */
+.heatmap-cell.level-0 {
+    background: #f0f0f0;
+    color: #999;
+}
+
+.heatmap-cell.level-1 {
+    background: #d4edda;
+    color: #155724;
+}
+
+.heatmap-cell.level-2 {
+    background: #9ed9ab;
+    color: #0d4418;
+}
+
+.heatmap-cell.level-3 {
+    background: #73c088;
+    color: #fff;
+}
+
+.heatmap-cell.level-4 {
+    background: #4caf50;
+    color: #fff;
+}
+
+.heatmap-cell.level-5 {
+    background: #45a049;
+    color: #fff;
+}
+
+.heatmap-cell.level-6 {
+    background: #3d8b40;
+    color: #fff;
+}
+
+.heatmap-cell.level-7 {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.heatmap-cell.level-8 {
+    background: #1b5e20;
+    color: #fff;
+}
+
+.heatmap-cell.level-9 {
+    background: #0d4014;
+    color: #fff;
+}
+
+.heatmap-cell.level-10 {
+    background: #003300;
+    color: #fff;
+}
+
+/* 月份标签行 */
+.heatmap-header {
+    display: grid;
+    grid-template-columns: 150px repeat(11, 1fr);
+    gap: 2px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.heatmap-month {
+    font-size: 12px;
+    text-align: center;
+    padding: 4px;
+}
+
+/* 图例 */
+.heatmap-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--bg-gray);
+    border-radius: 8px;
+}
+
+.legend-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.legend-gradient {
+    width: 300px;
+    height: 20px;
+    background: linear-gradient(90deg,
+        #f0f0f0 0%,
+        #d4edda 10%,
+        #9ed9ab 20%,
+        #73c088 30%,
+        #4caf50 40%,
+        #45a049 50%,
+        #3d8b40 60%,
+        #2e7d32 70%,
+        #1b5e20 80%,
+        #0d4014 90%,
+        #003300 100%
+    );
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 热力图工具提示 */
+.heatmap-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    min-width: 200px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.heatmap-tooltip.show {
+    opacity: 1;
+}
+
+.heatmap-tooltip-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.heatmap-tooltip-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+}
+
+.heatmap-tooltip-label {
+    color: #ccc;
+}
+
+.heatmap-tooltip-value {
+    font-weight: 600;
+    margin-left: 12px;
+}

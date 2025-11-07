@@ -16,6 +16,7 @@ function initializeDashboard() {
     initTicketTypeCompareChart();
     initCustomerGrowthChart();
     initCustomerValueScatterChart();
+    initIndustryHeatmap();
     initMonitorCharts();
 }
 
@@ -852,4 +853,222 @@ function formatAmount(amount) {
         return (amount / 10000).toFixed(1) + '万';
     }
     return amount.toLocaleString();
+}
+
+// 行业贴现量热力图数据
+let heatmapData = {
+    current: 'amount', // 当前显示指标：amount, count, growth
+    data: {}
+};
+
+// 9. 行业贴现量热力图
+function initIndustryHeatmap() {
+    // 生成热力图数据
+    generateHeatmapData();
+
+    // 渲染热力图
+    renderHeatmap('amount');
+}
+
+// 生成热力图模拟数据
+function generateHeatmapData() {
+    const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月'];
+    const industries = industryDistribution.map(i => i.name);
+
+    heatmapData.data = {
+        amount: {}, // 贴现金额（亿元）
+        count: {},  // 贴现笔数
+        growth: {}  // 增长率（%）
+    };
+
+    // 为每个行业生成11个月的数据
+    industries.forEach((industry, idx) => {
+        heatmapData.data.amount[industry] = [];
+        heatmapData.data.count[industry] = [];
+        heatmapData.data.growth[industry] = [];
+
+        // 基准值（基于行业分布数据）
+        const baseAmount = industryDistribution[idx].amount / 100000000 / 11; // 转为亿元并平均
+        const baseCount = industryDistribution[idx].count * 50; // 每月平均笔数
+
+        for (let i = 0; i < 11; i++) {
+            // 生成金额数据（带波动）
+            const seasonFactor = 1 + Math.sin(i / 11 * Math.PI * 2) * 0.3; // 季节性波动
+            const randomFactor = 0.8 + Math.random() * 0.4; // 随机波动 ±20%
+            const amount = Math.round(baseAmount * seasonFactor * randomFactor);
+            heatmapData.data.amount[industry].push(amount);
+
+            // 生成笔数数据（带波动）
+            const count = Math.round(baseCount * seasonFactor * randomFactor);
+            heatmapData.data.count[industry].push(count);
+
+            // 计算增长率（相比上月，第一个月为0）
+            if (i === 0) {
+                heatmapData.data.growth[industry].push(0);
+            } else {
+                const prevAmount = heatmapData.data.amount[industry][i - 1];
+                const growth = ((amount - prevAmount) / prevAmount * 100);
+                heatmapData.data.growth[industry].push(Math.round(growth * 10) / 10);
+            }
+        }
+    });
+}
+
+// 渲染热力图
+function renderHeatmap(metric) {
+    const container = document.getElementById('industryHeatmap');
+    if (!container) return;
+
+    const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月'];
+    const industries = industryDistribution.map(i => i.name);
+    const data = heatmapData.data[metric];
+
+    // 计算数据范围用于颜色映射
+    let allValues = [];
+    industries.forEach(industry => {
+        allValues = allValues.concat(data[industry]);
+    });
+    const minValue = Math.min(...allValues);
+    const maxValue = Math.max(...allValues);
+
+    // 生成HTML
+    let html = '<div class="heatmap-grid">';
+
+    // 表头（空白 + 月份）
+    html += '<div class="heatmap-header-cell"></div>';
+    months.forEach(month => {
+        html += `<div class="heatmap-header-cell">${month}</div>`;
+    });
+
+    // 数据行
+    industries.forEach((industry, rowIdx) => {
+        // 行标签
+        html += `<div class="heatmap-row-label">${industry}</div>`;
+
+        // 数据单元格
+        data[industry].forEach((value, colIdx) => {
+            const level = getColorLevel(value, minValue, maxValue, metric);
+            const formattedValue = formatHeatmapValue(value, metric);
+
+            html += `
+                <div class="heatmap-cell level-${level}"
+                     data-industry="${industry}"
+                     data-month="${months[colIdx]}"
+                     data-value="${value}"
+                     data-metric="${metric}"
+                     onmouseenter="showHeatmapTooltip(event, '${industry}', '${months[colIdx]}', ${value}, '${metric}')"
+                     onmouseleave="hideHeatmapTooltip()">
+                    ${formattedValue}
+                </div>
+            `;
+        });
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// 计算颜色等级（0-10）
+function getColorLevel(value, min, max, metric) {
+    if (metric === 'growth') {
+        // 增长率使用不同的映射逻辑
+        if (value < -20) return 0;
+        if (value < -10) return 1;
+        if (value < -5) return 2;
+        if (value < 0) return 3;
+        if (value < 5) return 4;
+        if (value < 10) return 5;
+        if (value < 15) return 6;
+        if (value < 20) return 7;
+        if (value < 30) return 8;
+        if (value < 40) return 9;
+        return 10;
+    }
+
+    // 金额和笔数使用线性映射
+    if (max === min) return 5;
+    const ratio = (value - min) / (max - min);
+    return Math.min(10, Math.floor(ratio * 11));
+}
+
+// 格式化热力图显示值
+function formatHeatmapValue(value, metric) {
+    if (metric === 'amount') {
+        if (value >= 1000) {
+            return (value / 1000).toFixed(1) + '千亿';
+        }
+        return value.toFixed(0) + '亿';
+    } else if (metric === 'count') {
+        if (value >= 1000) {
+            return (value / 1000).toFixed(1) + 'k';
+        }
+        return value.toString();
+    } else if (metric === 'growth') {
+        return value >= 0 ? '+' + value.toFixed(1) + '%' : value.toFixed(1) + '%';
+    }
+    return value.toString();
+}
+
+// 显示热力图提示框
+function showHeatmapTooltip(event, industry, month, value, metric) {
+    // 移除已有的提示框
+    hideHeatmapTooltip();
+
+    // 创建提示框
+    const tooltip = document.createElement('div');
+    tooltip.className = 'heatmap-tooltip';
+    tooltip.id = 'heatmapTooltip';
+
+    let metricLabel = '';
+    let metricValue = '';
+
+    if (metric === 'amount') {
+        metricLabel = '贴现金额';
+        metricValue = value >= 1000 ? (value / 1000).toFixed(2) + ' 千亿元' : value.toFixed(2) + ' 亿元';
+    } else if (metric === 'count') {
+        metricLabel = '贴现笔数';
+        metricValue = value.toLocaleString() + ' 笔';
+    } else if (metric === 'growth') {
+        metricLabel = '增长率';
+        metricValue = (value >= 0 ? '+' : '') + value.toFixed(2) + '%';
+    }
+
+    tooltip.innerHTML = `
+        <div class="tooltip-title">${industry} - ${month}</div>
+        <div class="tooltip-content">
+            <strong>${metricLabel}:</strong> ${metricValue}
+        </div>
+    `;
+
+    document.body.appendChild(tooltip);
+
+    // 定位提示框
+    const rect = event.target.getBoundingClientRect();
+    tooltip.style.left = (rect.left + rect.width / 2) + 'px';
+    tooltip.style.top = (rect.top - 10) + 'px';
+
+    // 添加显示类
+    setTimeout(() => {
+        tooltip.classList.add('show');
+    }, 10);
+}
+
+// 隐藏热力图提示框
+function hideHeatmapTooltip() {
+    const tooltip = document.getElementById('heatmapTooltip');
+    if (tooltip) {
+        tooltip.classList.remove('show');
+        setTimeout(() => {
+            if (tooltip.parentNode) {
+                tooltip.parentNode.removeChild(tooltip);
+            }
+        }, 200);
+    }
+}
+
+// 更新热力图指标
+function updateHeatmapMetric() {
+    const metric = document.getElementById('heatmapMetric').value;
+    heatmapData.current = metric;
+    renderHeatmap(metric);
 }

@@ -213,6 +213,31 @@
                 </div>
             </div>
 
+            <!-- 图表区域 - 第五行：热力图 -->
+            <div class="chart-row">
+                <div class="chart-card chart-full">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🔥 全行贴现量行业分类热度图</h3>
+                        <p class="chart-subtitle">纵轴：行业分类 | 横轴：月份 | 颜色深度：贴现量</p>
+                        <div class="chart-actions">
+                            <select class="heatmap-metric-select" id="heatmapMetric" onchange="updateHeatmapMetric()">
+                                <option value="amount">按金额</option>
+                                <option value="count">按笔数</option>
+                                <option value="growth">按增长率</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-body" style="height: auto; padding: 20px 0;">
+                        <div id="industryHeatmap" class="heatmap-container"></div>
+                        <div class="heatmap-legend">
+                            <span class="legend-label">低</span>
+                            <div class="legend-gradient"></div>
+                            <span class="legend-label">高</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 数据表格区域 -->
             <div class="data-table-section">
                 <div class="section-header">
