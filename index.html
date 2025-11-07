@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户画像系统 - 票据业务管理平台</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>票据业务客户画像系统</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link active">客户画像</a>
+                    <a href="#" class="nav-link">数据分析</a>
+                    <a href="#" class="nav-link">风险预警</a>
+                    <a href="#" class="nav-link">营销策略</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 统计卡片 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-title">客户总数</span>
+                        <span class="stat-card-icon">👥</span>
+                    </div>
+                    <div class="stat-card-value" id="totalCustomers">106</div>
+                    <div class="stat-card-footer">
+                        较上月 <span class="stat-trend">↑ 8.5%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-title">年累计交易额</span>
+                        <span class="stat-card-icon">💰</span>
+                    </div>
+                    <div class="stat-card-value" id="totalAmount">12,370亿</div>
+                    <div class="stat-card-footer">
+                        较上月 <span class="stat-trend">↑ 12.3%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-title">活跃客户</span>
+                        <span class="stat-card-icon">⚡</span>
+                    </div>
+                    <div class="stat-card-value" id="activeCustomers">89</div>
+                    <div class="stat-card-footer">
+                        本月活跃率 <span class="stat-trend">83.9%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-card-title">风险预警</span>
+                        <span class="stat-card-icon">⚠️</span>
+                    </div>
+                    <div class="stat-card-value" id="riskAlerts">13</div>
+                    <div class="stat-card-footer">
+                        中高风险客户数
+                    </div>
+                </div>
+            </div>
+
+            <!-- 筛选区域 -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <h3 class="filter-title">
+                        🔍 客户筛选
+                    </h3>
+                    <div class="filter-actions">
+                        <button class="btn btn-secondary" onclick="resetFilters()">重置筛选</button>
+                        <button class="btn btn-primary" onclick="applyFilters()">应用筛选</button>
+                    </div>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="filter-item">
+                        <label>客户名称</label>
+                        <div class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="searchName" placeholder="搜索客户名称...">
+                        </div>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>行业分类</label>
+                        <select id="filterIndustry">
+                            <option value="">全部行业</option>
+                            <option value="能源化工">能源化工</option>
+                            <option value="电子信息">电子信息</option>
+                            <option value="汽车制造">汽车制造</option>
+                            <option value="建筑业">建筑业</option>
+                            <option value="批发零售">批发零售</option>
+                            <option value="金融业">金融业</option>
+                            <option value="食品饮料">食品饮料</option>
+                            <option value="交通运输">交通运输</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>地区</label>
+                        <select id="filterRegion">
+                            <option value="">全部地区</option>
+                            <option value="北京">北京</option>
+                            <option value="上海">上海</option>
+                            <option value="广东">广东</option>
+                            <option value="江苏">江苏</option>
+                            <option value="浙江">浙江</option>
+                            <option value="山东">山东</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>企业类型</label>
+                        <select id="filterCompanyType">
+                            <option value="">全部类型</option>
+                            <option value="国有企业">国有企业</option>
+                            <option value="民营企业">民营企业</option>
+                            <option value="外资企业">外资企业</option>
+                            <option value="上市公司">上市公司</option>
+                            <option value="中小企业">中小企业</option>
+                            <option value="民营企业500强">民营企业500强</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>客户类型</label>
+                        <select id="filterBusinessVolume">
+                            <option value="">全部客户</option>
+                            <option value="新获取客户">新获取客户</option>
+                            <option value="成长型客户">成长型客户</option>
+                            <option value="稳定型客户">稳定型客户</option>
+                            <option value="衰退或流失预警客户">衰退或流失预警客户</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>风险等级</label>
+                        <select id="filterRisk">
+                            <option value="">全部风险等级</option>
+                            <option value="低">低风险</option>
+                            <option value="中">中风险</option>
+                            <option value="中高">中高风险</option>
+                            <option value="高">高风险</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>利率客户类型</label>
+                        <select id="filterRateLevel">
+                            <option value="">全部</option>
+                            <option value="强势客户">强势客户</option>
+                            <option value="普通客户">普通客户</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label>票据种类</label>
+                        <select id="filterTicketType">
+                            <option value="">全部票据</option>
+                            <option value="银票">银票</option>
+                            <option value="商票">商票</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户列表 -->
+            <div class="customer-list-section">
+                <div class="list-header">
+                    <h3 class="list-title">客户列表 (<span id="customerCount">10</span>)</h3>
+                    <div class="list-actions">
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="switchView('table')">📋 表格</button>
+                            <button class="view-btn" onclick="switchView('card')">📇 卡片</button>
+                        </div>
+                        <button class="btn btn-primary">导出数据</button>
+                    </div>
+                </div>
+
+                <!-- 表格视图 -->
+                <div id="tableView" class="table-view">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>客户名称</th>
+                                <th>行业</th>
+                                <th>地区</th>
+                                <th>客户类型</th>
+                                <th>年交易额</th>
+                                <th>信用评级</th>
+                                <th>风险等级</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                            <!-- 动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 卡片视图 -->
+                <div id="cardView" class="card-grid" style="display: none;">
+                    <!-- 动态生成 -->
+                </div>
+
+                <!-- 分页 -->
+                <div class="pagination" id="pagination">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 引入数据和脚本 -->
+    <script src="js/data-mock.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

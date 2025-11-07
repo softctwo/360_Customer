@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户详情 - 客户画像系统</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>票据业务客户画像系统</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">客户画像</a>
+                    <a href="#" class="nav-link">数据分析</a>
+                    <a href="#" class="nav-link">风险预警</a>
+                    <a href="#" class="nav-link">营销策略</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 返回按钮 -->
+            <div style="margin-bottom: 16px;">
+                <button class="btn btn-secondary" onclick="history.back()">← 返回客户列表</button>
+            </div>
+
+            <!-- 客户基本信息 -->
+            <div class="detail-header">
+                <div class="detail-header-content">
+                    <div class="detail-title-section">
+                        <h2 id="customerName">客户名称</h2>
+                        <p class="detail-subtitle" id="customerSubtitle">行业 · 地区</p>
+                    </div>
+                    <div class="detail-actions">
+                        <button class="btn btn-primary">📧 联系客户</button>
+                        <button class="btn btn-success">📄 生成报告</button>
+                        <button class="btn btn-secondary">⭐ 添加关注</button>
+                    </div>
+                </div>
+
+                <div class="detail-info-grid" id="basicInfo">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <!-- 风险预警 -->
+            <div id="riskAlert"></div>
+
+            <!-- 标签页 -->
+            <div class="tabs">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchTab('overview')">📋 全景画像</button>
+                    <button class="tab-btn" onclick="switchTab('business')">💼 业务特征</button>
+                    <button class="tab-btn" onclick="switchTab('risk')">⚠️ 风险评估</button>
+                    <button class="tab-btn" onclick="switchTab('analysis')">📈 数据分析</button>
+                    <button class="tab-btn" onclick="switchTab('strategy')">🎯 营销策略</button>
+                </div>
+
+                <div class="tab-content">
+                    <!-- 全景画像 -->
+                    <div id="overview" class="tab-pane active">
+                        <div class="dimension-grid" id="dimensionGrid">
+                            <!-- 动态生成维度卡片 -->
+                        </div>
+                    </div>
+
+                    <!-- 业务特征 -->
+                    <div id="business" class="tab-pane">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">月度交易趋势</h3>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="monthlyTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dimension-grid">
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">📊</span>
+                                    <h4 class="dimension-title">交易行为特征</h4>
+                                </div>
+                                <div class="dimension-content" id="tradeBehavior">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">🎫</span>
+                                    <h4 class="dimension-title">票据业务角色</h4>
+                                </div>
+                                <div class="dimension-content" id="businessRoles">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">📅</span>
+                                    <h4 class="dimension-title">业务时间规律</h4>
+                                </div>
+                                <div class="dimension-content" id="timePattern">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 风险评估 -->
+                    <div id="risk" class="tab-pane">
+                        <div class="dimension-grid">
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">⚠️</span>
+                                    <h4 class="dimension-title">信用记录</h4>
+                                </div>
+                                <div class="dimension-content" id="creditRecord">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">💳</span>
+                                    <h4 class="dimension-title">授信与担保情况</h4>
+                                </div>
+                                <div class="dimension-content" id="creditInfo">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">📉</span>
+                                    <h4 class="dimension-title">风险指标</h4>
+                                </div>
+                                <div class="dimension-content" id="riskIndicators">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 数据分析 -->
+                    <div id="analysis" class="tab-pane">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3 class="chart-title">交易量对比分析</h3>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="tradeCompareChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dimension-grid">
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">💰</span>
+                                    <h4 class="dimension-title">机构业务收益</h4>
+                                </div>
+                                <div class="dimension-content" id="businessRevenue">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">📄</span>
+                                    <h4 class="dimension-title">持票情况</h4>
+                                </div>
+                                <div class="dimension-content" id="ticketHolding">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">📈</span>
+                                    <h4 class="dimension-title">增长趋势</h4>
+                                </div>
+                                <div class="dimension-content" id="growthTrend">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 营销策略 -->
+                    <div id="strategy" class="tab-pane">
+                        <div class="alert alert-info" id="customerStrategy">
+                            <!-- 动态生成营销策略建议 -->
+                        </div>
+
+                        <div class="dimension-grid">
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">🎯</span>
+                                    <h4 class="dimension-title">推荐产品</h4>
+                                </div>
+                                <div class="dimension-content" id="recommendProducts">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">💡</span>
+                                    <h4 class="dimension-title">营销建议</h4>
+                                </div>
+                                <div class="dimension-content" id="marketingSuggestions">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+
+                            <div class="dimension-card">
+                                <div class="dimension-card-header">
+                                    <span class="dimension-icon">⏰</span>
+                                    <h4 class="dimension-title">最佳接触时机</h4>
+                                </div>
+                                <div class="dimension-content" id="bestTiming">
+                                    <!-- 动态生成 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 引入数据和脚本 -->
+    <script src="js/data-mock.js"></script>
+    <script src="js/customer-detail.js"></script>
+</body>
+</html>
