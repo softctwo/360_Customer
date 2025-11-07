@@ -17,6 +17,7 @@ function initializeDashboard() {
     initCustomerGrowthChart();
     initCustomerValueScatterChart();
     initIndustryHeatmap();
+    initIndustryAnalysis();
     initMonitorCharts();
 }
 
@@ -1071,4 +1072,263 @@ function updateHeatmapMetric() {
     const metric = document.getElementById('heatmapMetric').value;
     heatmapData.current = metric;
     renderHeatmap(metric);
+}
+
+// 行业综合分析数据
+let industryAnalysisData = {
+    currentIndustry: '全部',
+    currentSort: 'amount',
+    currentSortOrder: 'desc'
+};
+
+// 初始化行业综合分析
+function initIndustryAnalysis() {
+    updateIndustryAnalysis();
+}
+
+// 更新行业综合分析
+function updateIndustryAnalysis() {
+    const industry = document.getElementById('industrySelector').value;
+    industryAnalysisData.currentIndustry = industry;
+
+    // 筛选该行业的客户
+    const filteredCustomers = industry === '全部'
+        ? mockCustomers
+        : mockCustomers.filter(c => c.industry === industry);
+
+    // 更新概览数据
+    updateIndustryOverview(filteredCustomers);
+
+    // 更新表格
+    updateIndustryTable(filteredCustomers);
+
+    // 更新风险分布
+    updateIndustryRiskDistribution(filteredCustomers);
+}
+
+// 更新行业概览数据
+function updateIndustryOverview(customers) {
+    // 客户数
+    document.getElementById('industryCustomerCount').textContent = customers.length;
+
+    // 总交易额
+    const totalAmount = customers.reduce((sum, c) => sum + c.yearlyTradeAmount, 0);
+    document.getElementById('industryTotalAmount').textContent = formatAmount(totalAmount);
+
+    // 总交易笔数
+    const totalCount = customers.reduce((sum, c) => sum + c.yearlyTradeCount, 0);
+    document.getElementById('industryTotalCount').textContent = totalCount.toLocaleString();
+
+    // 平均风险等级
+    const riskScores = { '低': 1, '中': 2, '中高': 3, '高': 4 };
+    const avgRiskScore = customers.reduce((sum, c) => sum + (riskScores[c.riskLevel] || 2), 0) / customers.length;
+    let avgRisk = '中风险';
+    if (avgRiskScore < 1.5) avgRisk = '低风险';
+    else if (avgRiskScore < 2.5) avgRisk = '中风险';
+    else if (avgRiskScore < 3.5) avgRisk = '中高风险';
+    else avgRisk = '高风险';
+    document.getElementById('industryAvgRisk').textContent = avgRisk;
+
+    // 强势客户占比
+    const premiumCount = customers.filter(c => c.rateLevel === '强势客户').length;
+    const premiumRate = customers.length > 0 ? (premiumCount / customers.length * 100).toFixed(1) : 0;
+    document.getElementById('industryPremiumRate').textContent = premiumRate + '%';
+}
+
+// 更新行业表格
+function updateIndustryTable(customers) {
+    const sortedCustomers = sortCustomers(customers, industryAnalysisData.currentSort, industryAnalysisData.currentSortOrder);
+    renderIndustryTable(sortedCustomers);
+}
+
+// 排序客户数据
+function sortCustomers(customers, sortBy, order = 'desc') {
+    const sorted = [...customers].sort((a, b) => {
+        let valueA, valueB;
+
+        switch(sortBy) {
+            case 'amount':
+                valueA = a.yearlyTradeAmount;
+                valueB = b.yearlyTradeAmount;
+                break;
+            case 'count':
+                valueA = a.yearlyTradeCount;
+                valueB = b.yearlyTradeCount;
+                break;
+            case 'risk':
+                const riskScores = { '低': 1, '中': 2, '中高': 3, '高': 4 };
+                valueA = riskScores[a.riskLevel] || 2;
+                valueB = riskScores[b.riskLevel] || 2;
+                break;
+            case 'credit':
+                const creditScores = { 'AAA': 5, 'AA+': 4.5, 'AA': 4, 'A+': 3.5, 'A': 3, 'BBB+': 2.5, 'BBB': 2, 'BB': 1 };
+                valueA = creditScores[a.creditRating] || 0;
+                valueB = creditScores[b.creditRating] || 0;
+                break;
+            default:
+                valueA = a.yearlyTradeAmount;
+                valueB = b.yearlyTradeAmount;
+        }
+
+        return order === 'desc' ? valueB - valueA : valueA - valueB;
+    });
+
+    return sorted;
+}
+
+// 渲染行业表格
+function renderIndustryTable(customers) {
+    const tbody = document.getElementById('industryTableBody');
+    if (!tbody) return;
+
+    let html = '';
+
+    customers.forEach((customer, index) => {
+        const rank = index + 1;
+        const rankClass = rank === 1 ? 'top-1' : rank === 2 ? 'top-2' : rank === 3 ? 'top-3' : 'normal';
+
+        // 客户类型徽章
+        let typeBadge = '';
+        if (customer.businessVolume === '新获取客户') {
+            typeBadge = '<span class="badge badge-new">新获取</span>';
+        } else if (customer.businessVolume === '成长型客户') {
+            typeBadge = '<span class="badge badge-growing">成长型</span>';
+        } else if (customer.businessVolume === '稳定型客户') {
+            typeBadge = '<span class="badge badge-stable">稳定型</span>';
+        } else if (customer.businessVolume === '衰退或流失预警客户') {
+            typeBadge = '<span class="badge badge-declining">衰退预警</span>';
+        }
+
+        // 信用评级徽章
+        const creditClass = customer.creditRating.toLowerCase().replace('+', '');
+        const creditBadge = `<span class="badge-credit ${creditClass}">${customer.creditRating}</span>`;
+
+        // 风险等级徽章
+        let riskBadge = '';
+        if (customer.riskLevel === '低') {
+            riskBadge = '<span class="risk-badge risk-low">低风险</span>';
+        } else if (customer.riskLevel === '中') {
+            riskBadge = '<span class="risk-badge risk-medium">中风险</span>';
+        } else if (customer.riskLevel === '中高') {
+            riskBadge = '<span class="risk-badge risk-high">中高风险</span>';
+        } else if (customer.riskLevel === '高') {
+            riskBadge = '<span class="risk-badge risk-critical">高风险</span>';
+        }
+
+        // 强势等级
+        const rateBadge = customer.rateLevel === '强势客户'
+            ? '<span class="rate-badge strong">强势客户</span>'
+            : '<span class="rate-badge normal">普通客户</span>';
+
+        // 增长趋势（模拟数据）
+        const growthRate = (Math.random() * 30 - 10).toFixed(1);
+        const growthClass = growthRate > 0 ? 'growth-up' : growthRate < 0 ? 'growth-down' : 'growth-stable';
+        const growthArrow = growthRate > 0 ? '↑' : growthRate < 0 ? '↓' : '→';
+        const growthIndicator = `
+            <div class="growth-indicator ${growthClass}">
+                <span class="growth-arrow">${growthArrow}</span>
+                <span class="growth-value">${growthRate >= 0 ? '+' : ''}${growthRate}%</span>
+            </div>
+        `;
+
+        html += `
+            <tr>
+                <td class="col-rank">
+                    <span class="rank-number ${rankClass}">${rank}</span>
+                </td>
+                <td class="col-name">
+                    <div class="customer-name-cell">${customer.name}</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 2px;">${customer.region}</div>
+                </td>
+                <td class="col-type">${typeBadge}</td>
+                <td class="col-amount">
+                    <div style="font-weight: 600;">${formatAmount(customer.yearlyTradeAmount)}</div>
+                </td>
+                <td class="col-count">
+                    <div>${customer.yearlyTradeCount.toLocaleString()}</div>
+                </td>
+                <td class="col-credit">${creditBadge}</td>
+                <td class="col-risk">${riskBadge}</td>
+                <td class="col-rate">${rateBadge}</td>
+                <td class="col-growth">${growthIndicator}</td>
+                <td class="col-action">
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="viewCustomerDetail(${customer.id})">详情</button>
+                        <button class="action-btn" onclick="contactCustomer(${customer.id})">联系</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+}
+
+// 更新行业风险分布
+function updateIndustryRiskDistribution(customers) {
+    const riskCounts = {
+        '低': 0,
+        '中': 0,
+        '中高': 0,
+        '高': 0
+    };
+
+    customers.forEach(c => {
+        riskCounts[c.riskLevel] = (riskCounts[c.riskLevel] || 0) + 1;
+    });
+
+    const total = customers.length;
+
+    // 更新低风险
+    document.getElementById('riskLowCount').textContent = riskCounts['低'] + ' 家';
+    document.getElementById('riskLowBar').style.width = total > 0 ? (riskCounts['低'] / total * 100) + '%' : '0%';
+
+    // 更新中风险
+    document.getElementById('riskMediumCount').textContent = riskCounts['中'] + ' 家';
+    document.getElementById('riskMediumBar').style.width = total > 0 ? (riskCounts['中'] / total * 100) + '%' : '0%';
+
+    // 更新中高风险
+    document.getElementById('riskHighMediumCount').textContent = riskCounts['中高'] + ' 家';
+    document.getElementById('riskHighMediumBar').style.width = total > 0 ? (riskCounts['中高'] / total * 100) + '%' : '0%';
+
+    // 更新高风险
+    document.getElementById('riskCriticalCount').textContent = riskCounts['高'] + ' 家';
+    document.getElementById('riskCriticalBar').style.width = total > 0 ? (riskCounts['高'] / total * 100) + '%' : '0%';
+}
+
+// 排序行业表格
+function sortIndustryTable(sortBy) {
+    // 更新排序状态
+    industryAnalysisData.currentSort = sortBy;
+
+    // 如果点击的是同一个排序字段，则切换排序顺序
+    if (industryAnalysisData.currentSort === sortBy) {
+        industryAnalysisData.currentSortOrder =
+            industryAnalysisData.currentSortOrder === 'desc' ? 'asc' : 'desc';
+    } else {
+        industryAnalysisData.currentSortOrder = 'desc';
+    }
+
+    // 更新按钮状态
+    const buttons = document.querySelectorAll('.table-actions .sort-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.closest('.sort-btn').classList.add('active');
+
+    // 重新渲染表格
+    updateIndustryAnalysis();
+}
+
+// 查看客户详情
+function viewCustomerDetail(customerId) {
+    window.location.href = `customer-detail.html?id=${customerId}`;
+}
+
+// 联系客户
+function contactCustomer(customerId) {
+    const customer = mockCustomers.find(c => c.id === customerId);
+    if (customer) {
+        showNotification(`正在联系 ${customer.name}...`, 'info');
+    }
 }

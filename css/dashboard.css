@@ -802,3 +802,496 @@
     font-weight: 600;
     margin-left: 12px;
 }
+
+/* 行业综合分析区域 */
+.industry-analysis-section {
+    margin-top: 32px;
+    padding: 32px;
+    background: var(--bg-white);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.section-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.industry-selector {
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--bg-white);
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.industry-selector:hover {
+    border-color: var(--primary-color);
+}
+
+.industry-selector:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.1);
+}
+
+/* 行业概览卡片 */
+.industry-overview-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.industry-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.industry-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.industry-stat-card .stat-icon {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, rgba(24, 144, 255, 0.1), rgba(24, 144, 255, 0.05));
+    border-radius: 12px;
+}
+
+.industry-stat-card .stat-content {
+    flex: 1;
+}
+
+.industry-stat-card .stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.industry-stat-card .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* 行业表格容器 */
+.industry-table-container {
+    margin: 24px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.industry-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.sort-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-white);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sort-btn:hover {
+    background: var(--bg-gray);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.sort-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.sort-icon {
+    font-size: 14px;
+}
+
+.industry-table-wrapper {
+    overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.industry-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.industry-table thead {
+    position: sticky;
+    top: 0;
+    background: var(--bg-gray);
+    z-index: 10;
+}
+
+.industry-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 2px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.industry-table tbody tr {
+    transition: all 0.2s;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.industry-table tbody tr:hover {
+    background: rgba(24, 144, 255, 0.05);
+}
+
+.industry-table td {
+    padding: 16px;
+    color: var(--text-primary);
+}
+
+/* 表格列宽 */
+.col-rank {
+    width: 60px;
+    text-align: center;
+}
+
+.col-name {
+    min-width: 200px;
+}
+
+.col-type {
+    min-width: 120px;
+}
+
+.col-amount {
+    min-width: 120px;
+}
+
+.col-count {
+    min-width: 100px;
+}
+
+.col-credit {
+    min-width: 100px;
+}
+
+.col-risk {
+    min-width: 100px;
+}
+
+.col-rate {
+    min-width: 100px;
+}
+
+.col-growth {
+    min-width: 120px;
+}
+
+.col-action {
+    min-width: 150px;
+}
+
+/* 排名标识 */
+.rank-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.rank-number.top-1 {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #fff;
+}
+
+.rank-number.top-2 {
+    background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+    color: #666;
+}
+
+.rank-number.top-3 {
+    background: linear-gradient(135deg, #cd7f32, #daa06d);
+    color: #fff;
+}
+
+.rank-number.normal {
+    background: var(--bg-gray);
+    color: var(--text-secondary);
+}
+
+/* 客户名称 */
+.customer-name-cell {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* 徽章样式 */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge-new {
+    background: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+}
+
+.badge-growing {
+    background: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+}
+
+.badge-stable {
+    background: rgba(189, 189, 189, 0.1);
+    color: #666;
+}
+
+.badge-declining {
+    background: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+}
+
+.badge-credit {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.badge-credit.aaa {
+    background: linear-gradient(135deg, #52c41a, #73c088);
+    color: white;
+}
+
+.badge-credit.aa {
+    background: linear-gradient(135deg, #1890ff, #40a9ff);
+    color: white;
+}
+
+.badge-credit.a {
+    background: linear-gradient(135deg, #faad14, #ffc53d);
+    color: white;
+}
+
+.badge-credit.bbb {
+    background: linear-gradient(135deg, #fa8c16, #ffa940);
+    color: white;
+}
+
+.risk-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.risk-badge.risk-low {
+    background: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+}
+
+.risk-badge.risk-medium {
+    background: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+}
+
+.risk-badge.risk-high {
+    background: rgba(250, 173, 20, 0.1);
+    color: #faad14;
+}
+
+.risk-badge.risk-critical {
+    background: rgba(245, 34, 45, 0.1);
+    color: #f5222d;
+}
+
+.rate-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.rate-badge.strong {
+    background: linear-gradient(135deg, #722ed1, #9254de);
+    color: white;
+}
+
+.rate-badge.normal {
+    background: var(--bg-gray);
+    color: var(--text-secondary);
+}
+
+/* 增长趋势 */
+.growth-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.growth-arrow {
+    font-size: 16px;
+}
+
+.growth-value {
+    font-weight: 600;
+}
+
+.growth-up {
+    color: #52c41a;
+}
+
+.growth-down {
+    color: #f5222d;
+}
+
+.growth-stable {
+    color: #666;
+}
+
+/* 操作按钮 */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-white);
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* 行业风险分布 */
+.industry-risk-distribution {
+    margin-top: 24px;
+    padding: 24px;
+    background: var(--bg-gray);
+    border-radius: 12px;
+}
+
+.distribution-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 20px 0;
+}
+
+.risk-bars {
+    display: grid;
+    gap: 16px;
+}
+
+.risk-bar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.risk-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.risk-count {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.risk-bar-track {
+    height: 24px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.risk-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.risk-low-fill {
+    background: linear-gradient(90deg, #52c41a, #73d13d);
+}
+
+.risk-medium-fill {
+    background: linear-gradient(90deg, #1890ff, #40a9ff);
+}
+
+.risk-high-medium-fill {
+    background: linear-gradient(90deg, #faad14, #ffc53d);
+}
+
+.risk-critical-fill {
+    background: linear-gradient(90deg, #f5222d, #ff4d4f);
+}

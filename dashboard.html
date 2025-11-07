@@ -238,6 +238,153 @@
                 </div>
             </div>
 
+            <!-- 行业综合分析区域 -->
+            <div class="industry-analysis-section">
+                <div class="section-header">
+                    <div>
+                        <h3 class="section-title">🏭 行业综合分析</h3>
+                        <p class="section-subtitle">按行业维度分析客户数据，支持营销推广和风险把控</p>
+                    </div>
+                    <div class="section-actions">
+                        <select class="industry-selector" id="industrySelector" onchange="updateIndustryAnalysis()">
+                            <option value="全部">全部行业</option>
+                            <option value="能源化工">能源化工</option>
+                            <option value="电子信息">电子信息</option>
+                            <option value="汽车制造">汽车制造</option>
+                            <option value="建筑业">建筑业</option>
+                            <option value="批发零售">批发零售</option>
+                            <option value="金融业">金融业</option>
+                            <option value="食品饮料">食品饮料</option>
+                            <option value="交通运输">交通运输</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 行业概览卡片 -->
+                <div class="industry-overview-cards">
+                    <div class="industry-stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-label">行业客户数</div>
+                            <div class="stat-value" id="industryCustomerCount">106</div>
+                        </div>
+                    </div>
+                    <div class="industry-stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <div class="stat-label">总交易额</div>
+                            <div class="stat-value" id="industryTotalAmount">1.24万亿</div>
+                        </div>
+                    </div>
+                    <div class="industry-stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-label">总交易笔数</div>
+                            <div class="stat-value" id="industryTotalCount">23,450</div>
+                        </div>
+                    </div>
+                    <div class="industry-stat-card">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-content">
+                            <div class="stat-label">平均风险等级</div>
+                            <div class="stat-value" id="industryAvgRisk">低风险</div>
+                        </div>
+                    </div>
+                    <div class="industry-stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-label">强势客户占比</div>
+                            <div class="stat-value" id="industryPremiumRate">28.3%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 行业客户详细排名表格 -->
+                <div class="industry-table-container">
+                    <div class="industry-table-header">
+                        <h4 class="table-title">行业客户排名</h4>
+                        <div class="table-actions">
+                            <button class="sort-btn active" onclick="sortIndustryTable('amount')">
+                                <span class="sort-icon">💰</span> 按交易额
+                            </button>
+                            <button class="sort-btn" onclick="sortIndustryTable('count')">
+                                <span class="sort-icon">📊</span> 按笔数
+                            </button>
+                            <button class="sort-btn" onclick="sortIndustryTable('risk')">
+                                <span class="sort-icon">⚠️</span> 按风险
+                            </button>
+                            <button class="sort-btn" onclick="sortIndustryTable('credit')">
+                                <span class="sort-icon">⭐</span> 按信用
+                            </button>
+                        </div>
+                    </div>
+                    <div class="industry-table-wrapper">
+                        <table class="industry-table" id="industryTable">
+                            <thead>
+                                <tr>
+                                    <th class="col-rank">排名</th>
+                                    <th class="col-name">客户名称</th>
+                                    <th class="col-type">客户类型</th>
+                                    <th class="col-amount">年交易额</th>
+                                    <th class="col-count">年交易笔数</th>
+                                    <th class="col-credit">信用评级</th>
+                                    <th class="col-risk">风险等级</th>
+                                    <th class="col-rate">强势等级</th>
+                                    <th class="col-growth">增长趋势</th>
+                                    <th class="col-action">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="industryTableBody">
+                                <!-- 动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 行业风险分布 -->
+                <div class="industry-risk-distribution">
+                    <h4 class="distribution-title">行业风险分布</h4>
+                    <div class="risk-bars">
+                        <div class="risk-bar-item">
+                            <div class="risk-bar-label">
+                                <span class="risk-badge risk-low">低风险</span>
+                                <span class="risk-count" id="riskLowCount">0</span>
+                            </div>
+                            <div class="risk-bar-track">
+                                <div class="risk-bar-fill risk-low-fill" id="riskLowBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="risk-bar-item">
+                            <div class="risk-bar-label">
+                                <span class="risk-badge risk-medium">中风险</span>
+                                <span class="risk-count" id="riskMediumCount">0</span>
+                            </div>
+                            <div class="risk-bar-track">
+                                <div class="risk-bar-fill risk-medium-fill" id="riskMediumBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="risk-bar-item">
+                            <div class="risk-bar-label">
+                                <span class="risk-badge risk-high">中高风险</span>
+                                <span class="risk-count" id="riskHighMediumCount">0</span>
+                            </div>
+                            <div class="risk-bar-track">
+                                <div class="risk-bar-fill risk-high-medium-fill" id="riskHighMediumBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="risk-bar-item">
+                            <div class="risk-bar-label">
+                                <span class="risk-badge risk-critical">高风险</span>
+                                <span class="risk-count" id="riskCriticalCount">0</span>
+                            </div>
+                            <div class="risk-bar-track">
+                                <div class="risk-bar-fill risk-critical-fill" id="riskCriticalBar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 数据表格区域 -->
             <div class="data-table-section">
                 <div class="section-header">
