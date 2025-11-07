@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风险预警 - 客户画像系统</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/risk-warning.css">
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>票据业务客户画像系统</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">客户画像</a>
+                    <a href="dashboard.html" class="nav-link">数据分析</a>
+                    <a href="risk-warning.html" class="nav-link active">风险预警</a>
+                    <a href="marketing-strategy.html" class="nav-link">营销策略</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header-section">
+                <div>
+                    <h2 class="page-title-main">⚠️ 风险预警中心</h2>
+                    <p class="page-subtitle-main">实时监控客户风险，及时采取应对措施</p>
+                </div>
+                <div class="header-alert-summary">
+                    <div class="alert-count critical">
+                        <span class="count-number">3</span>
+                        <span class="count-label">高风险</span>
+                    </div>
+                    <div class="alert-count warning">
+                        <span class="count-number">10</span>
+                        <span class="count-label">中高风险</span>
+                    </div>
+                    <div class="alert-count normal">
+                        <span class="count-number">48</span>
+                        <span class="count-label">中风险</span>
+                    </div>
+                    <div class="alert-count safe">
+                        <span class="count-number">45</span>
+                        <span class="count-label">低风险</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 风险统计卡片 -->
+            <div class="risk-stats-grid">
+                <div class="risk-stat-card critical-card">
+                    <div class="card-icon">🚨</div>
+                    <div class="card-content">
+                        <h3 class="card-title">紧急预警</h3>
+                        <div class="card-value">3 个</div>
+                        <p class="card-desc">需要立即处理</p>
+                    </div>
+                </div>
+
+                <div class="risk-stat-card warning-card">
+                    <div class="card-icon">⚠️</div>
+                    <div class="card-content">
+                        <h3 class="card-title">重点关注</h3>
+                        <div class="card-value">10 个</div>
+                        <p class="card-desc">风险较高，需密切监控</p>
+                    </div>
+                </div>
+
+                <div class="risk-stat-card info-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3 class="card-title">今日新增预警</h3>
+                        <div class="card-value">2 个</div>
+                        <p class="card-desc">相比昨日</p>
+                    </div>
+                </div>
+
+                <div class="risk-stat-card success-card">
+                    <div class="card-icon">✅</div>
+                    <div class="card-content">
+                        <h3 class="card-title">已处理预警</h3>
+                        <div class="card-value">28 个</div>
+                        <p class="card-desc">本月累计</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高风险客户列表 -->
+            <div class="risk-list-section">
+                <div class="section-header-custom">
+                    <h3 class="section-title-custom">🚨 高风险客户预警</h3>
+                    <div class="section-actions-custom">
+                        <select class="filter-select">
+                            <option>全部预警</option>
+                            <option>逾期记录</option>
+                            <option>授信超限</option>
+                            <option>财务异常</option>
+                            <option>交易异常</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="risk-cards">
+                    <!-- 高风险客户1 -->
+                    <div class="risk-customer-card critical">
+                        <div class="card-header">
+                            <div class="customer-info">
+                                <div class="risk-badge critical-badge">高风险</div>
+                                <h4 class="customer-name-risk">青岛XX贸易有限公司</h4>
+                                <p class="customer-meta">批发零售 · 山东</p>
+                            </div>
+                            <div class="risk-score">
+                                <div class="score-value">32</div>
+                                <div class="score-label">风险评分</div>
+                            </div>
+                        </div>
+
+                        <div class="risk-indicators">
+                            <div class="indicator critical">
+                                <span class="indicator-icon">❌</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">存在逾期记录</div>
+                                    <div class="indicator-value">逾期3笔，金额1200万</div>
+                                </div>
+                            </div>
+
+                            <div class="indicator critical">
+                                <span class="indicator-icon">📈</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">授信使用率过高</div>
+                                    <div class="indicator-value">96.7% (145M/150M)</div>
+                                </div>
+                            </div>
+
+                            <div class="indicator warning">
+                                <span class="indicator-icon">📉</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">业务量急剧下降</div>
+                                    <div class="indicator-value">环比下降65%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="risk-suggestions">
+                            <div class="suggestion-title">建议措施：</div>
+                            <ul class="suggestion-list">
+                                <li>立即联系客户了解情况</li>
+                                <li>停止新增授信，要求还款</li>
+                                <li>加强贷后检查，必要时追加担保</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-danger btn-sm" onclick="handleRisk(7)">处理预警</button>
+                            <button class="btn btn-secondary btn-sm" onclick="viewDetails(7)">查看详情</button>
+                            <span class="alert-time">2小时前触发</span>
+                        </div>
+                    </div>
+
+                    <!-- 高风险客户2 -->
+                    <div class="risk-customer-card critical">
+                        <div class="card-header">
+                            <div class="customer-info">
+                                <div class="risk-badge critical-badge">高风险</div>
+                                <h4 class="customer-name-risk">深圳市XX科技有限公司</h4>
+                                <p class="customer-meta">电子信息 · 广东</p>
+                            </div>
+                            <div class="risk-score">
+                                <div class="score-value">45</div>
+                                <div class="score-label">风险评分</div>
+                            </div>
+                        </div>
+
+                        <div class="risk-indicators">
+                            <div class="indicator warning">
+                                <span class="indicator-icon">💰</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">频繁大额贴现</div>
+                                    <div class="indicator-value">近7天贴现15笔，金额3500万</div>
+                                </div>
+                            </div>
+
+                            <div class="indicator warning">
+                                <span class="indicator-icon">📊</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">授信使用率较高</div>
+                                    <div class="indicator-value">70% (35M/50M)</div>
+                                </div>
+                            </div>
+
+                            <div class="indicator info">
+                                <span class="indicator-icon">🆕</span>
+                                <div class="indicator-info">
+                                    <div class="indicator-label">新客户风险</div>
+                                    <div class="indicator-value">开户仅3个月</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="risk-suggestions">
+                            <div class="suggestion-title">建议措施：</div>
+                            <ul class="suggestion-list">
+                                <li>核实企业经营状况和现金流</li>
+                                <li>审慎审批新的贴现业务</li>
+                                <li>加强实地调查和风险监控</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-danger btn-sm" onclick="handleRisk(8)">处理预警</button>
+                            <button class="btn btn-secondary btn-sm" onclick="viewDetails(8)">查看详情</button>
+                            <span class="alert-time">5小时前触发</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中高风险客户列表 -->
+            <div class="risk-list-section">
+                <div class="section-header-custom">
+                    <h3 class="section-title-custom">⚠️ 中高风险客户关注</h3>
+                </div>
+
+                <div class="risk-table-container">
+                    <table class="risk-table">
+                        <thead>
+                            <tr>
+                                <th>客户名称</th>
+                                <th>行业</th>
+                                <th>风险等级</th>
+                                <th>主要风险点</th>
+                                <th>授信使用率</th>
+                                <th>最近交易</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="risk-row warning">
+                                <td>
+                                    <div class="table-customer-info">
+                                        <div class="customer-name-table">某某制造有限公司</div>
+                                        <div class="customer-code">客户编号: C2025001</div>
+                                    </div>
+                                </td>
+                                <td>制造业</td>
+                                <td><span class="risk-badge warning-badge">中高</span></td>
+                                <td>
+                                    <div class="risk-points">
+                                        <span class="risk-tag">授信偏高</span>
+                                        <span class="risk-tag">交易减少</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 82%"></div>
+                                    </div>
+                                    <span class="progress-text">82%</span>
+                                </td>
+                                <td>3天前</td>
+                                <td>
+                                    <button class="btn-link" onclick="viewDetails(101)">查看</button>
+                                </td>
+                            </tr>
+                            <!-- 更多行可以动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 风险趋势分析 -->
+            <div class="chart-section">
+                <div class="section-header-custom">
+                    <h3 class="section-title-custom">📈 风险趋势分析</h3>
+                </div>
+                <div class="charts-row">
+                    <div class="chart-box">
+                        <h4 class="chart-box-title">风险客户数量趋势</h4>
+                        <div class="chart-placeholder">
+                            <canvas id="riskTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-box">
+                        <h4 class="chart-box-title">风险等级分布</h4>
+                        <div class="chart-placeholder">
+                            <canvas id="riskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 引入脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/data-mock.js"></script>
+    <script src="js/risk-warning.js"></script>
+</body>
+</html>

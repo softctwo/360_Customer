@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据分析仪表板 - 客户画像系统</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- 头部 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-title">
+                    <span class="header-icon">📊</span>
+                    <h1>票据业务客户画像系统</h1>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html" class="nav-link">客户画像</a>
+                    <a href="dashboard.html" class="nav-link active">数据分析</a>
+                    <a href="risk-warning.html" class="nav-link">风险预警</a>
+                    <a href="marketing-strategy.html" class="nav-link">营销策略</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="main-content dashboard-content">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="page-header">
+                <div>
+                    <h2 class="page-title">数据分析仪表板</h2>
+                    <p class="page-subtitle">实时监控票据业务关键指标</p>
+                </div>
+                <div class="header-actions">
+                    <select class="time-range-select" id="timeRange">
+                        <option value="today">今日</option>
+                        <option value="week">本周</option>
+                        <option value="month" selected>本月</option>
+                        <option value="quarter">本季度</option>
+                        <option value="year">本年</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="refreshData()">🔄 刷新数据</button>
+                    <button class="btn btn-success" onclick="exportReport()">📥 导出报告</button>
+                </div>
+            </div>
+
+            <!-- KPI 指标卡片 -->
+            <div class="kpi-grid">
+                <div class="kpi-card kpi-primary">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">总交易金额</div>
+                        <div class="kpi-value" id="kpiTotalAmount">12,370亿</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 15.3%</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-success">
+                    <div class="kpi-icon">📈</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">交易笔数</div>
+                        <div class="kpi-value" id="kpiTotalCount">23,450</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 8.7%</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-warning">
+                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">活跃客户数</div>
+                        <div class="kpi-value" id="kpiActiveCustomers">89</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 12</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-danger">
+                    <div class="kpi-icon">⚠️</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">风险预警</div>
+                        <div class="kpi-value" id="kpiRiskAlerts">13</div>
+                        <div class="kpi-trend">
+                            <span class="trend-down">↓ 3</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-info">
+                    <div class="kpi-icon">💎</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">强势客户占比</div>
+                        <div class="kpi-value" id="kpiPremiumRate">28.3%</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 2.1%</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card kpi-purple">
+                    <div class="kpi-icon">🎯</div>
+                    <div class="kpi-content">
+                        <div class="kpi-label">客户满意度</div>
+                        <div class="kpi-value" id="kpiSatisfaction">94.5%</div>
+                        <div class="kpi-trend">
+                            <span class="trend-up">↑ 1.2%</span>
+                            <span class="trend-label">较上月</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图表区域 - 第一行 -->
+            <div class="chart-row">
+                <div class="chart-card chart-large">
+                    <div class="chart-header">
+                        <h3 class="chart-title">📊 月度交易趋势分析</h3>
+                        <div class="chart-actions">
+                            <button class="chart-action-btn active" onclick="switchChartType('line')">折线图</button>
+                            <button class="chart-action-btn" onclick="switchChartType('bar')">柱状图</button>
+                        </div>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card chart-medium">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🏭 行业分布</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="industryPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图表区域 - 第二行 -->
+            <div class="chart-row">
+                <div class="chart-card chart-medium">
+                    <div class="chart-header">
+                        <h3 class="chart-title">📍 地区分布热力图</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="regionBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card chart-medium">
+                    <div class="chart-header">
+                        <h3 class="chart-title">⚠️ 风险等级分布</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="riskDoughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card chart-medium">
+                    <div class="chart-header">
+                        <h3 class="chart-title">👥 客户类型分布</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="customerTypePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图表区域 - 第三行 -->
+            <div class="chart-row">
+                <div class="chart-card chart-large">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🎫 票据种类交易对比</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="ticketTypeCompareChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card chart-medium">
+                    <div class="chart-header">
+                        <h3 class="chart-title">📈 客户增长趋势</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="customerGrowthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图表区域 - 第四行 -->
+            <div class="chart-row">
+                <div class="chart-card chart-full">
+                    <div class="chart-header">
+                        <h3 class="chart-title">🎯 客户价值矩阵（散点图）</h3>
+                        <p class="chart-subtitle">横轴：年交易额 | 纵轴：交易频率</p>
+                    </div>
+                    <div class="chart-body chart-large-height">
+                        <canvas id="customerValueScatterChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数据表格区域 -->
+            <div class="data-table-section">
+                <div class="section-header">
+                    <h3 class="section-title">📋 TOP 10 客户排行榜</h3>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary" onclick="sortBy('amount')">按金额排序</button>
+                        <button class="btn btn-secondary" onclick="sortBy('count')">按笔数排序</button>
+                        <button class="btn btn-secondary" onclick="sortBy('growth')">按增长率排序</button>
+                    </div>
+                </div>
+                <div class="ranking-grid">
+                    <div class="ranking-item rank-1">
+                        <div class="rank-badge">🥇</div>
+                        <div class="rank-info">
+                            <div class="rank-name">中国建设银行股份有限公司</div>
+                            <div class="rank-meta">金融业 · 北京</div>
+                        </div>
+                        <div class="rank-stats">
+                            <div class="rank-value">2,560亿</div>
+                            <div class="rank-label">年交易额</div>
+                        </div>
+                    </div>
+
+                    <div class="ranking-item rank-2">
+                        <div class="rank-badge">🥈</div>
+                        <div class="rank-info">
+                            <div class="rank-name">中国石油天然气集团有限公司</div>
+                            <div class="rank-meta">能源化工 · 北京</div>
+                        </div>
+                        <div class="rank-stats">
+                            <div class="rank-value">1,580亿</div>
+                            <div class="rank-label">年交易额</div>
+                        </div>
+                    </div>
+
+                    <div class="ranking-item rank-3">
+                        <div class="rank-badge">🥉</div>
+                        <div class="rank-info">
+                            <div class="rank-name">华为技术有限公司</div>
+                            <div class="rank-meta">电子信息 · 广东</div>
+                        </div>
+                        <div class="rank-stats">
+                            <div class="rank-value">895亿</div>
+                            <div class="rank-label">年交易额</div>
+                        </div>
+                    </div>
+
+                    <div class="ranking-item">
+                        <div class="rank-badge">4</div>
+                        <div class="rank-info">
+                            <div class="rank-name">比亚迪股份有限公司</div>
+                            <div class="rank-meta">汽车制造 · 广东</div>
+                        </div>
+                        <div class="rank-stats">
+                            <div class="rank-value">456亿</div>
+                            <div class="rank-label">年交易额</div>
+                        </div>
+                    </div>
+
+                    <div class="ranking-item">
+                        <div class="rank-badge">5</div>
+                        <div class="rank-info">
+                            <div class="rank-name">上海建工集团股份有限公司</div>
+                            <div class="rank-meta">建筑业 · 上海</div>
+                        </div>
+                        <div class="rank-stats">
+                            <div class="rank-value">320亿</div>
+                            <div class="rank-label">年交易额</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 实时监控区域 -->
+            <div class="monitor-section">
+                <div class="section-header">
+                    <h3 class="section-title">⚡ 实时业务监控</h3>
+                    <div class="monitor-status">
+                        <span class="status-indicator status-active"></span>
+                        <span>实时更新中</span>
+                    </div>
+                </div>
+                <div class="monitor-grid">
+                    <div class="monitor-card">
+                        <div class="monitor-header">
+                            <span class="monitor-icon">📝</span>
+                            <span class="monitor-title">今日新增票据</span>
+                        </div>
+                        <div class="monitor-value">1,234 笔</div>
+                        <div class="monitor-chart">
+                            <canvas id="todayTicketsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-header">
+                            <span class="monitor-icon">💳</span>
+                            <span class="monitor-title">贴现业务量</span>
+                        </div>
+                        <div class="monitor-value">567 笔</div>
+                        <div class="monitor-chart">
+                            <canvas id="discountChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-header">
+                            <span class="monitor-icon">⏰</span>
+                            <span class="monitor-title">平均处理时长</span>
+                        </div>
+                        <div class="monitor-value">2.3 小时</div>
+                        <div class="monitor-chart">
+                            <canvas id="processingTimeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="monitor-card">
+                        <div class="monitor-header">
+                            <span class="monitor-icon">✅</span>
+                            <span class="monitor-title">业务成功率</span>
+                        </div>
+                        <div class="monitor-value">98.7%</div>
+                        <div class="monitor-chart">
+                            <canvas id="successRateChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 引入数据和脚本 -->
+    <script src="js/data-mock.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
