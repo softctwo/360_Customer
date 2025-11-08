@@ -344,21 +344,47 @@ function initBusinessRoleChart() {
 
     const roles = currentCustomer.businessRoles;
     const allRoles = ['出票人', '收票人', '背书人', '贴现申请人'];
-    const data = allRoles.map(role => roles.includes(role) ? 1 : 0);
-    const percentages = data.map(d => d * (100 / roles.length));
+
+    // 为每个角色生成更真实的业务量占比
+    const roleData = {};
+    const baseValues = {
+        '出票人': 30,
+        '收票人': 25,
+        '背书人': 20,
+        '贴现申请人': 35
+    };
+
+    // 计算实际参与角色的数据
+    let totalValue = 0;
+    roles.forEach(role => {
+        const variance = (Math.random() - 0.5) * 10; // ±5%的随机波动
+        roleData[role] = baseValues[role] + variance;
+        totalValue += roleData[role];
+    });
+
+    // 归一化到100%
+    roles.forEach(role => {
+        roleData[role] = (roleData[role] / totalValue) * 100;
+    });
+
+    // 生成图表数据
+    const chartData = allRoles.map(role => roleData[role] || 0);
+    const activeLabels = allRoles.filter((role, idx) => chartData[idx] > 0);
+    const activeData = chartData.filter(d => d > 0);
+    const activeColors = [
+        'rgba(24, 144, 255, 0.8)',
+        'rgba(82, 196, 26, 0.8)',
+        'rgba(250, 173, 20, 0.8)',
+        'rgba(245, 34, 45, 0.8)'
+    ].filter((_, idx) => chartData[idx] > 0);
 
     detailCharts.businessRole = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: allRoles,
+            labels: activeLabels,
             datasets: [{
-                data: percentages,
-                backgroundColor: [
-                    'rgba(24, 144, 255, 0.8)',
-                    'rgba(82, 196, 26, 0.8)',
-                    'rgba(250, 173, 20, 0.8)',
-                    'rgba(245, 34, 45, 0.8)'
-                ],
+                data: activeData,
+                backgroundColor: activeColors,
                 borderWidth: 2,
                 borderColor: '#fff',
                 hoverOffset: 10
@@ -374,9 +400,6 @@ function initBusinessRoleChart() {
                         padding: 10,
                         font: {
                             size: 11
-                        },
-                        filter: function(item, chart) {
-                            return chart.data.datasets[0].data[item.index] > 0;
                         }
                     }
                 },
@@ -385,10 +408,8 @@ function initBusinessRoleChart() {
                     padding: 12,
                     callbacks: {
                         label: function(context) {
-                            if (context.parsed > 0) {
-                                return context.label + ': ✓ 活跃';
-                            }
-                            return null;
+                            const percentage = context.parsed.toFixed(1);
+                            return context.label + ': ' + percentage + '%';
                         }
                     }
                 }
@@ -402,12 +423,22 @@ function initMonthlyVolumeChart() {
     const ctx = document.getElementById('monthlyVolumeChart');
     if (!ctx) return;
 
-    const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月'];
-    const avgMonthly = currentCustomer.yearlyTradeCount / 11;
-    const data = months.map((_, i) => {
-        const variation = (Math.random() - 0.5) * 0.3;
-        return Math.round(avgMonthly * (1 + variation));
-    });
+    // 获取该客户的月度数据，如果没有则生成模拟数据
+    const customerMonthlyData = monthlyTradeData[currentCustomer.id];
+    let months, data;
+
+    if (customerMonthlyData) {
+        months = customerMonthlyData.months;
+        data = customerMonthlyData.counts;
+    } else {
+        // 如果没有预设数据，则生成合理的模拟数据
+        months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月'];
+        const avgMonthly = currentCustomer.yearlyTradeCount / 11;
+        data = months.map((_, i) => {
+            const variation = (Math.random() - 0.5) * 0.3;
+            return Math.round(avgMonthly * (1 + variation));
+        });
+    }
 
     detailCharts.monthlyVolume = new Chart(ctx, {
         type: 'bar',
@@ -431,14 +462,32 @@ function initMonthlyVolumeChart() {
                 },
                 tooltip: {
                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    padding: 12
+                    padding: 12,
+                    callbacks: {
+                        label: function(context) {
+                            return '交易笔数: ' + context.parsed.y.toLocaleString() + ' 笔';
+                        }
+                    }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '交易笔数',
+                        font: {
+                            size: 12,
+                            weight: '600'
+                        }
+                    },
                     grid: {
                         color: 'rgba(0, 0, 0, 0.05)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
                     }
                 },
                 x: {
